@@ -102,8 +102,10 @@ async function seedRevenue() {
 }
 
 export async function GET() {
+  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
   try {
-    const result = await sql.begin((sql) => [
+    await sql.begin(() => [
       seedUsers(),
       seedCustomers(),
       seedInvoices(),
